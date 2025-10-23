@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5050'
 
 function AdminPage({ onNavigate }) {
   const [uploadedFile, setUploadedFile] = useState(null)
@@ -23,7 +24,7 @@ function AdminPage({ onNavigate }) {
   // Fetch statistics from backend
   const fetchStatistics = async () => {
     try {
-      const response = await fetch('http://localhost:5050/api/stats')
+      const response = await fetch(`${API_URL}/api/stats`)
       const data = await response.json()
       
       if (data.success) {
@@ -65,7 +66,7 @@ function AdminPage({ onNavigate }) {
         const formData = new FormData()
         formData.append('pdf', file)
   
-        const response = await fetch('http://localhost:5050/api/upload/pdf', {
+        const response = await fetch(`${API_URL}/api/upload/pdf`, {
           method: 'POST',
           body: formData
         })
